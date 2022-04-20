@@ -1,0 +1,43 @@
+{
+  "name": "mern_frontend_graphql",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5000/",
+  "dependencies": {
+    "@apollo/client": "^3.3.11",
+    "bootstrap": "^4.5.0",
+    "eslint": "^6.6.0",
+    "graphql": "^15.5.0",
+    "moment": "^2.29.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

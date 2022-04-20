@@ -1,0 +1,10 @@
+.title-center {
+  display: block !important;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.register-container {
+  width: 400px;
+  margin: auto;
+}
