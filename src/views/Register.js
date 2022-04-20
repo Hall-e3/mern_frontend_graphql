@@ -2,24 +2,13 @@ import { gql } from "@apollo/client";
 import React from "react";
 import { Form, Button, Icon } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
-const registerValues = {
-  email: "",
-  username: "",
-  password: "",
-};
+import Error from "../components/Error";
+import { useForm } from "../utils";
 
 const REGISTER_USER = gql`
-  mutation register(
-    $email: String!
-    $username: String!
-    $password: String!
-  ) {
+  mutation register($email: String!, $username: String!, $password: String!) {
     register(
-      user: {
-        email: $email
-        username: $username
-        password: $password
-      }
+      user: { email: $email, username: $username, password: $password }
     ) {
       email
       token
@@ -29,40 +18,37 @@ const REGISTER_USER = gql`
   }
 `;
 
-export const Register = () => {
-  const [values, setValues] = React.useState(registerValues);
-  const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
+export const Register = (props) => {
+  const {
+    handleInputChange,
+    handleSubmit,
+    registerValues,
+    show,
+    handleShowPassword,
+  } = useForm(registerUser);
+
+  const [addUser, { loading, error }] = useMutation(REGISTER_USER, {
+    update(_, result) {
       console.log(result);
+      props.history.push("/login");
     },
-    variables: values,
+    variables: registerValues,
   });
 
-  const [show, setShow] = React.useState(false);
-  const handleInputChange = (e) => {
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
-  };
-  console.log(values);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  function registerUser() {
     addUser();
-  };
+  }
 
-  const handleShowPassword = () => {
-    setShow(!show);
-  };
   return (
     <div className="register-container">
       <h3>Register</h3>
+      {error && <Error errorMessage={error.message} />}
       <Form onSubmit={handleSubmit}>
         <Form.Input
           label="Username"
           placeholder="username"
           name="username"
-          value={values.username}
+          value={registerValues.username}
           type="text"
           onChange={handleInputChange}
         />
@@ -70,7 +56,7 @@ export const Register = () => {
           label="Email"
           placeholder="email"
           name="email"
-          value={values.email}
+          value={registerValues.email}
           type="email"
           onChange={handleInputChange}
         />
@@ -78,7 +64,7 @@ export const Register = () => {
           label="Password"
           placeholder="password"
           name="password"
-          value={values.password}
+          value={registerValues.password}
           type={show ? "text" : "password"}
           onChange={handleInputChange}
           icon={
@@ -88,8 +74,15 @@ export const Register = () => {
             />
           }
         />
-        
-        <Button type="submit" primary>Register</Button>
+
+        <Button
+          type="submit"
+          primary
+          fluid
+          className={loading ? "loading" : ""}
+        >
+          Register
+        </Button>
       </Form>
     </div>
   );

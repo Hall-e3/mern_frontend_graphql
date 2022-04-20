@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Icon, Label, Image, Button } from "semantic-ui-react";
-import { gql, useQuery } from "@apollo/client";
+import { gql} from "@apollo/client";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
@@ -50,7 +50,7 @@ export default function PostCard({
       </Card.Content>
       <Card.Content style={{ display: " flex" }}>
         <Button as="div" labelPosition="right" onClick={likePost}>
-          <Button color="teal" basic={filled ? null : "basic"}>
+          <Button color="teal" className={filled ? null : "basic"}>
             <Icon name="heart" />
           </Button>
           <Label basic color="teal" pointing="left">
