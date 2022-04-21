@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Container, Grid } from "semantic-ui-react";
-import { Error, Loading, PostCard } from "../components";
+import { Error, Loading, PostCard, PostForm } from "../components";
+import { AuthContext } from "../context/auth";
+
+
 
 const GET_ALL_POSTS = gql`
   {
@@ -23,6 +26,7 @@ const GET_ALL_POSTS = gql`
 `;
 
 export const Home = () => {
+  const { user } = useContext(AuthContext);
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
   const [posts, setPosts] = React.useState([]);
   React.useEffect(() => {
@@ -39,6 +43,11 @@ export const Home = () => {
           <h1 className="title-center">Recent Posts</h1>
         </Grid.Row>
         <Grid.Row>
+          {user && (
+            <Grid.Column>
+              <PostForm/>
+            </Grid.Column>
+          )}
           {loading ? (
             <Loading />
           ) : (

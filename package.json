@@ -5,9 +5,11 @@
   "proxy": "http://localhost:5000/",
   "dependencies": {
     "@apollo/client": "^3.3.11",
+    "apollo-link-context": "^1.0.20",
     "bootstrap": "^4.5.0",
     "eslint": "^6.6.0",
     "graphql": "^15.5.0",
+    "jwt-decode": "^3.1.2",
     "moment": "^2.29.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

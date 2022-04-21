@@ -11,11 +11,16 @@ const registerInitialValues = {
   password: "",
 };
 
-export default function useForm(callBack) {
+const postDetails = {
+  description: "",
+};
+
+export default function useForm(callBack, data) {
   const [loginValues, setLoginValues] = React.useState(loginInitialValues);
   const [registerValues, setRegisterValues] = React.useState(
     registerInitialValues
   );
+  const [postValues, setPostValues] = React.useState(postDetails);
   const [show, setShow] = React.useState(false);
 
   const handleInputChange = (e) => {
@@ -28,15 +33,27 @@ export default function useForm(callBack) {
       ...registerValues,
       [e.target.name]: e.target.value,
     });
+
+    setPostValues({
+      ...postValues,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     callBack();
+    handleFormClear();
   };
 
   const handleShowPassword = () => {
     setShow(!show);
+  };
+
+  const handleFormClear = () => {
+    setPostValues(postDetails);
+    setLoginValues(loginInitialValues);
+    setRegisterValues(registerInitialValues);
   };
   return {
     handleInputChange,
@@ -44,6 +61,8 @@ export default function useForm(callBack) {
     loginValues,
     registerValues,
     handleShowPassword,
+    handleFormClear,
+    postValues,
     show,
   };
 }
