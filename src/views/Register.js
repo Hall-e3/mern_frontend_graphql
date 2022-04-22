@@ -4,19 +4,8 @@ import { Form, Button, Icon } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import Error from "../components/Error";
 import { useForm } from "../utils";
+import { REGISTER_USER } from "../utils/graphql/mutations";
 
-const REGISTER_USER = gql`
-  mutation register($email: String!, $username: String!, $password: String!) {
-    register(
-      user: { email: $email, username: $username, password: $password }
-    ) {
-      email
-      token
-      username
-      createdAt
-    }
-  }
-`;
 
 export const Register = (props) => {
   const {
